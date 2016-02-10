@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import com.allen.teachingaid.R;
 
 public class CourseFragment extends Fragment {
+    static CourseFragment fragment = null;
 
     public CourseFragment() {
     }
 
     public static CourseFragment newInstance() {
-        CourseFragment fragment = new CourseFragment();
+        if (fragment == null) {
+            fragment = new CourseFragment();
+        }
+
         return fragment;
     }
 

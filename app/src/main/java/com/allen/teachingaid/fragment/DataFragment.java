@@ -1,8 +1,8 @@
 package com.allen.teachingaid.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 import com.allen.teachingaid.R;
 
 public class DataFragment extends Fragment {
+    static DataFragment fragment = null;
 
     public DataFragment() {
     }
 
     public static DataFragment newInstance() {
-        DataFragment fragment = new DataFragment();
+        if (fragment == null) {
+            fragment = new DataFragment();
+        }
         return fragment;
     }
 

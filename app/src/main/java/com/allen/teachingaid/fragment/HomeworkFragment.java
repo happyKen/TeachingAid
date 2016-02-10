@@ -22,6 +22,7 @@ public class HomeworkFragment extends Fragment {
             fragment = new HomeworkFragment();
 
         }
+
         return fragment;
     }
 

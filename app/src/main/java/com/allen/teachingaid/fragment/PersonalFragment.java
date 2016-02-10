@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import com.allen.teachingaid.R;
 
 public class PersonalFragment extends Fragment {
+    static PersonalFragment fragment = null;
+
 
     public PersonalFragment() {
     }
 
     public static PersonalFragment newInstance() {
-        PersonalFragment fragment = new PersonalFragment();
+        if (fragment == null) {
+            fragment = new PersonalFragment();
+        }
         return fragment;
     }
 
