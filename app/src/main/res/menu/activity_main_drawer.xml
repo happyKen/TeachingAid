@@ -3,21 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_course"
             android:icon="@drawable/ic_menu_camera"
-            android:title="班级" />
+            android:title="课程"/>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_homework"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="作业" />
+            android:title="作业"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_data"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="资料" />
+            android:title="资料"/>
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_personal"
             android:icon="@drawable/ic_menu_manage"
-            android:title="个人中心" />
+            android:title="个人中心"/>
     </group>
 
     <item android:title="支持一下我们">
@@ -25,11 +25,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="分享" />
+                android:title="分享"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="反馈" />
+                android:title="反馈"/>
         </menu>
     </item>
 
