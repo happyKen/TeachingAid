@@ -1,12 +1,8 @@
 package com.allen.teachingaid.view;
 
 /**
- * Allen Lin 2016/02
- */
-
-/*
  * Copyright (C) 2014 The Android Open Source Project
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * limitations under the License.
  */
@@ -22,9 +18,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * This class is from the v7 samples of the Android SDK. It's not by me!
- * <p/>
+ * This class is from the v7 samples of the Android SDK.
  * See the license above for details.
+ * 实现 RecyclerView.ItemDecoration 抽象类，为RecyclerView添加分割线
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 

@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.allen.teachingaid.R;
@@ -16,6 +17,7 @@ import com.allen.teachingaid.fragment.CourseFragment;
 import com.allen.teachingaid.fragment.DataFragment;
 import com.allen.teachingaid.fragment.HomeworkFragment;
 import com.allen.teachingaid.fragment.PersonalFragment;
+import com.allen.teachingaid.util.ToastUtil;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private List<Fragment> fragments;
     DrawerLayout drawer;
     NavigationView navigationView;
+    static int fragment_position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        toolbar.setSubtitle("Sub title");
         setSupportActionBar(toolbar);
+//        toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,7 +77,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        menu.clear();
+        MenuInflater menuInflater = getMenuInflater();
+        switch (fragment_position) {
+            case 0:
+                menuInflater.inflate(R.menu.fragment_course, menu);
+                break;
+            case 1:
+                menuInflater.inflate(R.menu.fragment_homework, menu);
+                break;
+            case 2:
+                menuInflater.inflate(R.menu.fragment_data, menu);
+                break;
+            case 3:
+                menuInflater.inflate(R.menu.fragment_personal, menu);
+                break;
+            default:
+                break;
+        }
+
         return true;
     }
 
@@ -83,9 +107,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            ToastUtil.showShort("添加");
+            return true;
+        } else if (id == R.id.action_publish) {
+            ToastUtil.showShort("发布");
+            return true;
+        } else if (id == R.id.action_upload) {
+            ToastUtil.showShort("上传");
+            return true;
+        } else if (id == R.id.action_edit) {
+            ToastUtil.showShort("编辑");
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -100,21 +135,30 @@ public class MainActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, CourseFragment.newInstance()).commit();
                 toolbar.setTitle(item.getTitle());
+                fragment_position = 0;
+                invalidateOptionsMenu();
                 break;
             case R.id.nav_homework:
+
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, HomeworkFragment.newInstance()).commit();
                 toolbar.setTitle(item.getTitle());
+                fragment_position = 1;
+                invalidateOptionsMenu();
                 break;
             case R.id.nav_data:
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, DataFragment.newInstance()).commit();
                 toolbar.setTitle(item.getTitle());
+                fragment_position = 2;
+                invalidateOptionsMenu();
                 break;
             case R.id.nav_personal:
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, PersonalFragment.newInstance()).commit();
                 toolbar.setTitle(item.getTitle());
+                fragment_position = 3;
+                invalidateOptionsMenu();
                 break;
             default:
                 break;
@@ -124,7 +168,30 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+//    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+//        @Override
+//        public boolean onMenuItemClick(MenuItem menuItem) {
+//            String msg = "";
+//            switch (menuItem.getItemId()) {
+////                case R.id.action_edit:
+////                    msg += "Click edit";
+////                    break;
+////                case R.id.action_share:
+////                    msg += "Click share";
+////                    break;
+//                case R.id.action_settings:
+//                    msg += "Click setting";
+//                    break;
+//            }
 //
+//            if (!msg.equals("")) {
+//                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//            }
+//            return true;
+//        }
+//    };
+////
 //    private void selectItem(int id) {
 //        //   Fragment fragment = fragments.get(position);
 //        FragmentManager manager = getFragmentManager();

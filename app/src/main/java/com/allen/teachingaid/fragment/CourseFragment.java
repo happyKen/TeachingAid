@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.allen.teachingaid.R;
-import com.allen.teachingaid.adapter.ItemRecyclerViewAdapter;
+import com.allen.teachingaid.adapter.CourseItemAdapter;
 import com.allen.teachingaid.view.DividerItemDecoration;
 
 public class CourseFragment extends Fragment {
@@ -37,11 +37,11 @@ public class CourseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new ItemRecyclerViewAdapter());
+        recyclerView.setAdapter(new CourseItemAdapter(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL_LIST));
         // Inflate the layout for this fragment

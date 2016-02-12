@@ -10,4 +10,4 @@
 
     app:layoutManager="LinearLayoutManager"
     tools:context="com.allen.teachingaid.fragment.ItemFragment"
-    tools:listitem="@layout/fragment_item"/>
+    tools:listitem="@layout/fragment_course_item"/>
