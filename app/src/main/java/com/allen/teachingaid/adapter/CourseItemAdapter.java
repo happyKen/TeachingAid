@@ -39,6 +39,7 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
             public void onClick(View v) {
                 ToastUtil.showShort(position + mTitles[position]);
                 Intent intent = new Intent(mContext, StuListActivity.class);
+                intent.putExtra("course_id", "123321");
                 mContext.startActivity(intent);
             }
         });

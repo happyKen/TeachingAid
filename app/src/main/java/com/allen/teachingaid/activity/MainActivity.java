@@ -169,29 +169,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-//    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
-//        @Override
-//        public boolean onMenuItemClick(MenuItem menuItem) {
-//            String msg = "";
-//            switch (menuItem.getItemId()) {
-////                case R.id.action_edit:
-////                    msg += "Click edit";
-////                    break;
-////                case R.id.action_share:
-////                    msg += "Click share";
-////                    break;
-//                case R.id.action_settings:
-//                    msg += "Click setting";
-//                    break;
-//            }
-//
-//            if (!msg.equals("")) {
-//                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-//            }
-//            return true;
-//        }
-//    };
-////
 //    private void selectItem(int id) {
 //        //   Fragment fragment = fragments.get(position);
 //        FragmentManager manager = getFragmentManager();
