@@ -3,18 +3,15 @@ package com.allen.teachingaid.volley;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.allen.teachingaid.App;
 import com.allen.teachingaid.R;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageRequest;
+import com.socks.library.KLog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,8 +46,8 @@ public class SampleActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (App.getInstance() != null) {
-            App.getInstance().cancelRequests(TAG);
+        if (VolleyManager.newInstance() != null) {
+            VolleyManager.newInstance().cancel(TAG);
         }
 
     }
@@ -71,68 +68,48 @@ public class SampleActivity extends AppCompatActivity {
 //            }
 //        });
         // 2.新建一个GsonRequest请求
-        GsonRequest<Person> gsonRequest = new GsonRequest<Person>(
-                mJsonUrl, Person.class,
-                new Response.Listener<Person>() {
-                    @Override
-                    public void onResponse(Person person) {
-                        Log.d(TAG, "first_name: " + person.getFirst_name());
-                        Log.d(TAG, "last_name: " + person.getLast_name());
-                        Log.d(TAG, "gender: " + person.getGender());
-                        mTextview.setText("first_name: " + person.getFirst_name() + "\n"
-                                + "last_name: " + person.getLast_name() + "\n" +
-                                "gender: " + person.getGender());
-                    }
-                }, new Response.ErrorListener() {
+        VolleyManager.newInstance().GsonGetRequest(mJsonUrl, Person.class, new Listener<Person>() {
+            @Override
+            public void onResponse(Person person) {
+                KLog.v(TAG, person.toString());
+                mTextview.setText("first_name: " + person.getFirst_name() + "\n"
+                        + "last_name: " + person.getLast_name() + "\n" +
+                        "gender: " + person.getGender());
+            }
+        }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, error.getMessage(), error);
+                KLog.v(TAG, error.getMessage());
             }
         });
 
-        VolleyManager.newInstance().newStringRequest("sd",
-                new Listener<String>() {
-                    @Override
-                    public void onResponse(String person) {
-
-                    }
-                }, new ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, error.getMessage(), error);
-                    }
-                }
-        );
-
-        //添加请求到队列
-        App.getInstance().
-
-                addRequest(gsonRequest, TAG);
     }
 
     private void getImage() {
-        ImageLoader imageLoader = App.getInstance().getImageLoader();
-        ImageLoader.ImageListener listener = ImageLoader.getImageListener(mImageview,
-                R.mipmap.ic_default, R.mipmap.ic_error);
-        imageLoader.get(mImageUrl, listener, 0, 0);//0为不压缩
+//        ImageLoader imageLoader = App.getInstance().getImageLoader();
+//        ImageLoader.ImageListener listener = ImageLoader.getImageListener(mImageview,
+//                R.mipmap.ic_default, R.mipmap.ic_error);
+//        imageLoader.get(mImageUrl, listener, 0, 0);//0为不压缩
+
+        VolleyManager.newInstance().ImageLoaderRequest
+                (mImageview, mImageUrl, R.mipmap.ic_default, R.mipmap.ic_error);
     }
 
     private void getCircleImage() {
         mCircleimageview.setImageResource(R.mipmap.ic_default);
-        ImageRequest imageRequest =
-                new ImageRequest(mImageUrl, new Response.Listener<Bitmap>() {
+
+        VolleyManager.newInstance().ImageRequest(mImageUrl, new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap bitmap) {
                         mCircleimageview.setImageBitmap(bitmap);
                     }
                 }, 0, 0, ImageView.ScaleType.CENTER_INSIDE, null,
-                        new Response.ErrorListener() {
-                            public void onErrorResponse(VolleyError error) {
-                                mCircleimageview.setImageResource(R.mipmap.ic_error);
-                            }
-                        });
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        mCircleimageview.setImageResource(R.mipmap.ic_error);
+                    }
+                });
 
-        App.getInstance().addRequest(imageRequest);
 
     }
 }

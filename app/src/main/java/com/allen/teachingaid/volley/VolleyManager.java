@@ -1,6 +1,7 @@
 package com.allen.teachingaid.volley;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.allen.teachingaid.App;
@@ -8,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -41,7 +43,7 @@ public class VolleyManager {
     }
 
     private <T> Request<T> add(Request<T> request) {
-        return mRequestQueue.add(request);
+        return mRequestQueue.add(request);//添加请求到队列
     }
 
 
@@ -54,6 +56,26 @@ public class VolleyManager {
     public StringRequest StrRequest(int method, String url, Response.Listener<String> listener,
                                     Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(method, url, listener, errorListener);
+        add(request);
+        return request;
+    }
+
+    /**
+     * ImageRequest
+     *
+     * @param url
+     * @param listener
+     * @param maxWidth
+     * @param maxHeight
+     * @param decodeConfig
+     * @param errorListener
+     * @return
+     */
+    public ImageRequest ImageRequest(String url, Response.Listener<Bitmap> listener,
+                                     int maxWidth, int maxHeight, ImageView.ScaleType scaleType,
+                                     Bitmap.Config decodeConfig, Response.ErrorListener errorListener) {
+        ImageRequest request = new ImageRequest(url, listener, maxWidth, maxHeight, scaleType,
+                decodeConfig, errorListener);
         add(request);
         return request;
     }
@@ -111,7 +133,7 @@ public class VolleyManager {
     /**
      * Post封装
      *
-     * @param method
+     * @param params
      * @param url
      * @param clazz
      * @param listener
@@ -126,4 +148,12 @@ public class VolleyManager {
         return request;
     }
 
+    /**
+     * 取消请求
+     *
+     * @param tag
+     */
+    public void cancel(Object tag) {
+        mRequestQueue.cancelAll(tag);
+    }
 }
