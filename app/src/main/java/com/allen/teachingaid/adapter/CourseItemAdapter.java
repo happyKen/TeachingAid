@@ -40,7 +40,6 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 //        holder.mImageView.setImageBitmap(bitmap);
         Picasso.with(mContext).setIndicatorsEnabled(true);
         Picasso.with(mContext)
-
                 .load("http://i.imgur.com/DvpvklR.png")
                 .resize(150, 150)
                 .centerCrop()
