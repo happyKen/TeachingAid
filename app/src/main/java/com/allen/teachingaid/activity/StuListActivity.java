@@ -11,22 +11,27 @@ import com.allen.teachingaid.adapter.StuItemAdapter;
 import com.allen.teachingaid.util.ToastUtil;
 import com.allen.teachingaid.view.DividerItemDecoration;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class StuListActivity extends AppCompatActivity {
 
     public static String course_id;
+    @Bind(R.id.list_stu)
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_list);
+        ButterKnife.bind(this);
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
         ToastUtil.showShort(course_id);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_stu);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new StuItemAdapter(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new StuItemAdapter(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
 
     }

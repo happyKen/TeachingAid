@@ -21,40 +21,44 @@ import com.allen.teachingaid.util.ToastUtil;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar toolbar;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.nav_view)
+    NavigationView mNavView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
     //    String[] menus = new String[]{
 //            "Main", "Homework", "Data", "Personal"
 //    };
     private List<Fragment> fragments;
-    DrawerLayout drawer;
-    NavigationView navigationView;
     static int fragment_position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setLogo(R.mipmap.ic_launcher);
-        toolbar.setSubtitle("Sub title");
-        setSupportActionBar(toolbar);
+        mToolbar.setLogo(R.mipmap.ic_launcher);
+        mToolbar.setSubtitle("Sub title");
+        setSupportActionBar(mToolbar);
 //        toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        mNavView.setNavigationItemSelectedListener(this);
         getFragmentManager().beginTransaction().add
                 (R.id.container, CourseFragment.newInstance()).commit();
-        navigationView.setCheckedItem(R.id.nav_course);
+        mNavView.setCheckedItem(R.id.nav_course);
 //        fragments = new ArrayList<Fragment>();
 //        fragments.add(HomeFragment.newInstance("Home"));
 //        fragments.add(MercuryFragment.newInstance("Mercury"));
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_course:
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, CourseFragment.newInstance()).commit();
-                toolbar.setTitle(item.getTitle());
+                mToolbar.setTitle(item.getTitle());
                 fragment_position = 0;
                 invalidateOptionsMenu();
                 break;
@@ -142,21 +146,21 @@ public class MainActivity extends AppCompatActivity
 
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, HomeworkFragment.newInstance()).commit();
-                toolbar.setTitle(item.getTitle());
+                mToolbar.setTitle(item.getTitle());
                 fragment_position = 1;
                 invalidateOptionsMenu();
                 break;
             case R.id.nav_data:
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, DataFragment.newInstance()).commit();
-                toolbar.setTitle(item.getTitle());
+                mToolbar.setTitle(item.getTitle());
                 fragment_position = 2;
                 invalidateOptionsMenu();
                 break;
             case R.id.nav_personal:
                 getFragmentManager().beginTransaction().replace
                         (R.id.container, PersonalFragment.newInstance()).commit();
-                toolbar.setTitle(item.getTitle());
+                mToolbar.setTitle(item.getTitle());
                 fragment_position = 3;
                 invalidateOptionsMenu();
                 break;
