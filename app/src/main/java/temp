@@ -6,7 +6,9 @@
     或gridview中，界面右上角有点名按钮（自动点名和手动点名）
     (orm关系对象映射的第三方库生成model类)
 
-
+2.传teacher id————>获取这个teacher教的所有course id,name,address;
+  传course id————>获取这门course下的所有student id及name;
+  传student id————>获取这个student的详细信息
 
 
 遗留问题：

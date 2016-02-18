@@ -69,7 +69,27 @@ public class SampleActivity extends AppCompatActivity {
 //            }
 //        });
         //2.新建一个GsonRequest请求
-        GsonRequest<Person> gsonRequest = new GsonRequest<Person>(
+//        GsonRequest<Person> gsonRequest = new GsonRequest<Person>(
+//                mJsonUrl, Person.class,
+//                new Response.Listener<Person>() {
+//                    @Override
+//                    public void onResponse(Person person) {
+//                        Log.d(TAG, "first_name: " + person.getFirst_name());
+//                        Log.d(TAG, "last_name: " + person.getLast_name());
+//                        Log.d(TAG, "gender: " + person.getGender());
+//                        mTextview.setText("first_name: " + person.getFirst_name() + "\n"
+//                                + "last_name: " + person.getLast_name() + "\n" +
+//                                "gender: " + person.getGender());
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, error.getMessage(), error);
+//            }
+//        });
+
+        //3.新建一个GsonRequest请求
+        JacksonRequest<Person> gsonRequest = new JacksonRequest<Person>(
                 mJsonUrl, Person.class,
                 new Response.Listener<Person>() {
                     @Override
