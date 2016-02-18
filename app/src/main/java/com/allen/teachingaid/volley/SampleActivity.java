@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.allen.teachingaid.App;
 import com.allen.teachingaid.R;
 import com.android.volley.Response;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
@@ -68,28 +70,8 @@ public class SampleActivity extends AppCompatActivity {
 //                Log.e(TAG, error.getMessage(), error);
 //            }
 //        });
-        //2.新建一个GsonRequest请求
-//        GsonRequest<Person> gsonRequest = new GsonRequest<Person>(
-//                mJsonUrl, Person.class,
-//                new Response.Listener<Person>() {
-//                    @Override
-//                    public void onResponse(Person person) {
-//                        Log.d(TAG, "first_name: " + person.getFirst_name());
-//                        Log.d(TAG, "last_name: " + person.getLast_name());
-//                        Log.d(TAG, "gender: " + person.getGender());
-//                        mTextview.setText("first_name: " + person.getFirst_name() + "\n"
-//                                + "last_name: " + person.getLast_name() + "\n" +
-//                                "gender: " + person.getGender());
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.getMessage(), error);
-//            }
-//        });
-
-        //3.新建一个GsonRequest请求
-        JacksonRequest<Person> gsonRequest = new JacksonRequest<Person>(
+        // 2.新建一个GsonRequest请求
+        GsonRequest<Person> gsonRequest = new GsonRequest<Person>(
                 mJsonUrl, Person.class,
                 new Response.Listener<Person>() {
                     @Override
@@ -108,8 +90,24 @@ public class SampleActivity extends AppCompatActivity {
             }
         });
 
+        VolleyManager.newInstance().newStringRequest("sd",
+                new Listener<String>() {
+                    @Override
+                    public void onResponse(String person) {
+
+                    }
+                }, new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.getMessage(), error);
+                    }
+                }
+        );
+
         //添加请求到队列
-        App.getInstance().addRequest(gsonRequest, TAG);
+        App.getInstance().
+
+                addRequest(gsonRequest, TAG);
     }
 
     private void getImage() {
