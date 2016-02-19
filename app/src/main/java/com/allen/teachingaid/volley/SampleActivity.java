@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.allen.teachingaid.R;
 import com.allen.teachingaid.config.Urls;
-import com.allen.teachingaid.entity.TaCourse;
+import com.allen.teachingaid.entity.JCourse;
 import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -69,15 +69,12 @@ public class SampleActivity extends AppCompatActivity {
 //                KLog.v(TAG, error.getMessage());
 //            }
 //        });
-        VolleyManager.newInstance().GsonGetRequest(Urls.COURSE_URL, TaCourse.class, new Listener<TaCourse>() {
+        VolleyManager.newInstance().GsonGetRequest(Urls.COURSE_URL, JCourse.class, new Listener<JCourse>() {
             @Override
-            public void onResponse(TaCourse taCourse) {
-                KLog.v(TAG, taCourse.getInfo());
-
-                KLog.v(TAG, taCourse.getData().getCourse());
-                KLog.v(TAG, taCourse.getData().getCourse().get(0));
-                KLog.v(TAG, taCourse.getData().getCourse().get(0).getName());
-                KLog.v(taCourse.getData().getCourse().get(1).getName());
+            public void onResponse(JCourse jCourse) {
+                KLog.v(TAG, jCourse.getData().getCourse().get(2).getName());
+                KLog.v(TAG, jCourse.getInfo());
+                KLog.v(TAG, jCourse.getStatus());
             }
         }, new Response.ErrorListener() {
             @Override

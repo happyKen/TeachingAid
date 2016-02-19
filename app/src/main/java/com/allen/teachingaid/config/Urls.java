@@ -4,10 +4,10 @@ package com.allen.teachingaid.config;
  * Created by Allen Lin on 2016/02/18.
  */
 public class Urls {
-    public static final String COURSE_URL = "http://www.mocky.io/v2/56c59a7d0f00009a24a204b6";
+    public static final String COURSE_URL = " http://www.mocky.io/v2/56c6c6cb110000a21582b5c8";
 //    {
 //        "data": {
-//        "Course" :[
+//        "course" :[
 //        {
 //            "id": 1,
 //                "name": "编译原理",
