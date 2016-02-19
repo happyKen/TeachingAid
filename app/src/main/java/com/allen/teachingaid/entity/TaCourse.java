@@ -4,48 +4,63 @@ import java.util.List;
 
 /**
  * Created by Allen Lin on 2016/02/18.
+ * http://www.mocky.io/v2/56c59a7d0f00009a24a204b6
  */
-public class Course {
+public class TaCourse {
     /**
      * data : {"Course":[{"id":1,"name":"编译原理","remark":"计算机1班周三班","address":"南校区教学楼E302","create_time":"2/18/2016"},{"id":2,"name":"软件工程","remark":"计算机1班周三班","address":"南校区教学楼E302","create_time":"2/18/2016"},{"id":3,"name":"数据库工程","remark":"计算机1班周三班","address":"南校区教学楼E302","create_time":"2/18/2016"}]}
      * info : success
      * status : 0
      */
-    private List<aCourse> courseList;
+    private Data data;
     private String info;
     private int status;
 
-    public void setCourseList(List<aCourse> courseList) {
-        this.courseList = courseList;
+    public Data getData() {
+        return data;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public List<aCourse> getCourseList() {
-        return courseList;
+    public void setData(Data data) {
+        this.data = data;
     }
 
     public String getInfo() {
         return info;
     }
 
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public int getStatus() {
         return status;
     }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public static class Data {
+        private List<aCourse> Course;
+
+        public List<aCourse> getCourse() {
+            return Course;
+        }
+
+        public void setCourse(List<aCourse> course) {
+            Course = course;
+        }
+    }
+
+    /* id : 1
+     * name : 编译原理
+     * remark : 计算机1班周三班
+     * address : 南校区教学楼E302
+     * create_time : 2/18/2016
+     */
     public static class aCourse {
-        /* id : 1
-         * name : 编译原理
-         * remark : 计算机1班周三班
-         * address : 南校区教学楼E302
-         * create_time : 2/18/2016
-         */
+
+
         private int id;
         private String name;
         private String remark;

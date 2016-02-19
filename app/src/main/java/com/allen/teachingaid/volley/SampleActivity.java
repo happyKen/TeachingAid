@@ -7,8 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
+import com.allen.teachingaid.config.Urls;
+import com.allen.teachingaid.entity.TaCourse;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.socks.library.KLog;
@@ -53,51 +54,47 @@ public class SampleActivity extends AppCompatActivity {
     }
 
     private void getJson() {
-        //1.新建一个JsonObject请求
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://www.mocky.io/v2/56c33f991200002d3773f261", null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Log.d(TAG, response.toString());
-//                        mTextview.setText(response.toString());
-//                    }
-//                }, new Response.ErrorListener() {
+
+//        VolleyManager.newInstance().GsonGetRequest(mJsonUrl, Person.class, new Listener<Person>() {
+//            @Override
+//            public void onResponse(Person person) {
+//                KLog.v(TAG, person.toString());
+//                mTextview.setText("first_name: " + person.getFirst_name() + "\n"
+//                        + "last_name: " + person.getLast_name() + "\n" +
+//                        "gender: " + person.getGender());
+//            }
+//        }, new ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.getMessage(), error);
+//                KLog.v(TAG, error.getMessage());
 //            }
 //        });
-        // 2.新建一个GsonRequest请求
-        VolleyManager.newInstance().GsonGetRequest(mJsonUrl, Person.class, new Listener<Person>() {
+        VolleyManager.newInstance().GsonGetRequest(Urls.COURSE_URL, TaCourse.class, new Listener<TaCourse>() {
             @Override
-            public void onResponse(Person person) {
-                KLog.v(TAG, person.toString());
-                mTextview.setText("first_name: " + person.getFirst_name() + "\n"
-                        + "last_name: " + person.getLast_name() + "\n" +
-                        "gender: " + person.getGender());
+            public void onResponse(TaCourse taCourse) {
+                KLog.v(TAG, taCourse.getInfo());
+
+                KLog.v(TAG, taCourse.getData().getCourse());
+                KLog.v(TAG, taCourse.getData().getCourse().get(0));
+                KLog.v(TAG, taCourse.getData().getCourse().get(0).getName());
+                KLog.v(taCourse.getData().getCourse().get(1).getName());
             }
-        }, new ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 KLog.v(TAG, error.getMessage());
             }
         });
-
     }
 
     private void getImage() {
-//        ImageLoader imageLoader = App.getInstance().getImageLoader();
-//        ImageLoader.ImageListener listener = ImageLoader.getImageListener(mImageview,
-//                R.mipmap.ic_default, R.mipmap.ic_error);
-//        imageLoader.get(mImageUrl, listener, 0, 0);//0为不压缩
-
         VolleyManager.newInstance().ImageLoaderRequest
                 (mImageview, mImageUrl, R.mipmap.ic_default, R.mipmap.ic_error);
     }
 
     private void getCircleImage() {
-        mCircleimageview.setImageResource(R.mipmap.ic_default);
 
+        mCircleimageview.setImageResource(R.mipmap.ic_default);
         VolleyManager.newInstance().ImageRequest(mImageUrl, new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap bitmap) {
@@ -109,7 +106,5 @@ public class SampleActivity extends AppCompatActivity {
                         mCircleimageview.setImageResource(R.mipmap.ic_error);
                     }
                 });
-
-
     }
 }
