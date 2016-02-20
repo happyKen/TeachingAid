@@ -27,6 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    public static final String TAG = "CourseFragment";
     @Bind(R.id.course_list_rcview)
     RecyclerView mCourseListRcview;
     @Bind(R.id.swiperefreshlayout)
@@ -52,14 +53,24 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void httpGetData() {
-        VolleyManager.newInstance().GsonGetRequest(Urls.COURSE_URL, JCourse.class
+        new Handler().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mSwiperefreshlayout.setRefreshing(true);
+            }
+        });
+
+        VolleyManager.newInstance().GsonGetRequest(TAG, Urls.COURSE_URL, JCourse.class
                 , new Response.Listener<JCourse>() {
             @Override
             public void onResponse(JCourse jCourse) {
                 KLog.v("TAG", "ok" + jCourse.getData().getCourse().get(0).getName());
                 mCourseItemAdapter.setDataSource(jCourse.getData().getCourse());
-                hideDialog();
+                //  hideDialog();
                 mCourseItemAdapter.notifyDataSetChanged();
+                if (mSwiperefreshlayout != null)
+                    mSwiperefreshlayout.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -67,17 +78,17 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 KLog.v("TAG", error.getMessage(), error);
                 KLog.v("TAG", error.getNetworkTimeMs());
                 KLog.v("TAG", error.toString());
-                hideDialog();
+                mSwiperefreshlayout.setRefreshing(false);
             }
         });
     }
 
-    private void hideDialog() {
-        if (pDialog != null) {
-            pDialog.dismiss();
-            pDialog = null;
-        }
-    }
+//    private void hideDialog() {
+//        if (pDialog != null) {
+//            pDialog.dismiss();
+//            pDialog = null;
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,18 +97,13 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
         ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        httpGetData();
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.show();
-
         mSwiperefreshlayout.setColorSchemeResources(
                 R.color.colorPrimary,
                 R.color.colorPrimaryDark,
@@ -111,19 +117,36 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
         mCourseListRcview.setAdapter(mCourseItemAdapter);
         mCourseListRcview.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-
+        httpGetData();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mSwiperefreshlayout != null) {
+            mSwiperefreshlayout.setRefreshing(false);
+            mSwiperefreshlayout.destroyDrawingCache();
+            mSwiperefreshlayout.clearAnimation();
+        }
+        if (VolleyManager.newInstance() != null) {
+            VolleyManager.newInstance().cancel(TAG);
+        }
+    }
+
 
     @Override
     public void onDetach() {
@@ -138,13 +161,7 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-        KLog.v("TAG", "onRefresh");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwiperefreshlayout.setRefreshing(false);
-            }
-        },5000);
+        httpGetData();
     }
 
 }

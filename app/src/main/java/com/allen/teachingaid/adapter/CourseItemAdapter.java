@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.allen.teachingaid.R;
 import com.allen.teachingaid.entity.JCourse.Data.Course;
 import com.allen.teachingaid.util.ToastUtil;
-import com.squareup.picasso.Picasso;
+import com.allen.teachingaid.volley.VolleyManager;
 
 import java.util.List;
 
@@ -52,14 +52,16 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 //        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
 //        holder.mImageView.setImageBitmap(bitmap);
 
-        Picasso.with(mContext).setIndicatorsEnabled(true);
-        Picasso.with(mContext)
-                .load("http://i.imgur.com/DvpvklR.png")
-                .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.menu1)
-                .into(holder.mImageView);
+//        Picasso.with(mContext).setIndicatorsEnabled(true);
+//        Picasso.with(mContext)
+//                .load("http://i.imgur.com/DvpvklR.png")
+//                .resize(150, 150)
+//                .centerCrop()
+//                .placeholder(R.mipmap.ic_launcher)
+//                .error(R.mipmap.menu1)
+//                .into(holder.mImageView);
+        VolleyManager.newInstance().ImageLoaderRequest(holder.mImageView, "https://d262ilb51hltx0.cloudfront.net/max/800/1*dWGwx6UUjc0tocYzFNBLEw.jpeg",
+                R.mipmap.ic_default,R.mipmap.ic_error,150,150);
         holder.mContentView.setText(mCourseList.get(position).getName());
 
 

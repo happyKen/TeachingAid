@@ -28,8 +28,7 @@ public class VolleyManager {
      */
     public VolleyManager(Context context) {
 
-        mRequestQueue = Volley.newRequestQueue(context,
-                new OkHttp3Stack());
+        mRequestQueue = Volley.newRequestQueue(context);
 
         mImageLoader = new ImageLoader(mRequestQueue,
                 new LruBitmapCache(context));
@@ -123,10 +122,12 @@ public class VolleyManager {
      * @param <T>
      * @return
      */
-    public <T> GsonRequest<T> GsonGetRequest(String url, Class<T> clazz, Response.Listener<T> listener,
+    public <T> GsonRequest<T> GsonGetRequest(Object tag, String url, Class<T> clazz, Response.Listener<T> listener,
                                              Response.ErrorListener errorListener) {
         GsonRequest<T> request = new GsonRequest<T>(url, clazz, listener, errorListener);
+        request.setTag(tag);
         add(request);
+
         return request;
     }
 
@@ -141,9 +142,10 @@ public class VolleyManager {
      * @param <T>
      * @return
      */
-    public <T> GsonRequest<T> GsonPostRequest(Map<String, String> params, String url, Class<T> clazz, Response.Listener<T> listener,
+    public <T> GsonRequest<T> GsonPostRequest(Object tag, Map<String, String> params, String url, Class<T> clazz, Response.Listener<T> listener,
                                               Response.ErrorListener errorListener) {
         GsonRequest<T> request = new GsonRequest<T>(Request.Method.POST, params, url, clazz, listener, errorListener);
+        request.setTag(tag);
         add(request);
         return request;
     }

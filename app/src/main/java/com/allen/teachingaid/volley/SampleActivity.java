@@ -69,7 +69,7 @@ public class SampleActivity extends AppCompatActivity {
 //                KLog.v(TAG, error.getMessage());
 //            }
 //        });
-        VolleyManager.newInstance().GsonGetRequest(Urls.COURSE_URL, JCourse.class, new Listener<JCourse>() {
+        VolleyManager.newInstance().GsonGetRequest(TAG,Urls.COURSE_URL, JCourse.class, new Listener<JCourse>() {
             @Override
             public void onResponse(JCourse jCourse) {
                 KLog.v(TAG, jCourse.getData().getCourse().get(2).getName());
