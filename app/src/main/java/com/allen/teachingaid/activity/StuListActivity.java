@@ -25,6 +25,7 @@ public class StuListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_list);
         ButterKnife.bind(this);
+
         Intent intent = getIntent();
         course_id = intent.getStringExtra("course_id");
         ToastUtil.showShort(course_id);
@@ -33,6 +34,16 @@ public class StuListActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new StuItemAdapter(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
+
+        showDialog();
+        initData();
+
+    }
+
+    private void showDialog() {
+    }
+
+    private void initData() {
 
     }
 }

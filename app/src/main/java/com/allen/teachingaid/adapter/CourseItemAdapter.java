@@ -1,26 +1,39 @@
 package com.allen.teachingaid.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
-import com.allen.teachingaid.activity.StuListActivity;
+import com.allen.teachingaid.entity.JCourse.Data.Course;
 import com.allen.teachingaid.util.ToastUtil;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.ViewHolder> {
 
-    private String[] mTitles = {"手机软件周一班", "信息检索周三、四班", "计算机英语", "嵌入式", "中间件周四班"};
+    // private String[] mTitles = {"手机软件周一班", "信息检索周三、四班", "计算机英语", "嵌入式", "中间件周四班"};
     Context mContext;
+    private List<Course> mCourseList;
+
 
     public CourseItemAdapter(Context context) {
         this.mContext = context;
+
+    }
+
+    public void setDataSource(List<Course> mCourseList) {
+        this.mCourseList = mCourseList;
     }
 
     @Override
@@ -38,6 +51,7 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
         //Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into(holder.mImageView);
 //        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
 //        holder.mImageView.setImageBitmap(bitmap);
+
         Picasso.with(mContext).setIndicatorsEnabled(true);
         Picasso.with(mContext)
                 .load("http://i.imgur.com/DvpvklR.png")
@@ -46,16 +60,16 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.menu1)
                 .into(holder.mImageView);
-        holder.mContentView.setText(mTitles[position]);
+        holder.mContentView.setText(mCourseList.get(position).getName());
 
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mListItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(position + mTitles[position]);
-                Intent intent = new Intent(mContext, StuListActivity.class);
-                intent.putExtra("course_id", "123321");
-                mContext.startActivity(intent);
+                ToastUtil.showShort(position + mCourseList.get(position).getName());
+//                Intent intent = new Intent(mContext, StuListActivity.class);
+//                intent.putExtra("course_id", "123321");
+//                mContext.startActivity(intent);
             }
         });
 
@@ -63,21 +77,39 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mTitles == null ? 0 : mTitles.length;
+        return mCourseList == null ? 0 : mCourseList.size();
+    }
+
+    @OnClick({R.id.imageview, R.id.contentview, R.id.list_item_view})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.image:
+                break;
+            case R.id.contentview:
+                break;
+            case R.id.list_item_view:
+
+                break;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final ImageView mImageView;
-        public final TextView mContentView;
+        @Bind(R.id.imageview)
+        ImageView mImageView;
+        @Bind(R.id.contentview)
+        TextView mContentView;
+        @Bind(R.id.list_item_view)
+        LinearLayout mListItemView;
 
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
+
+            //  mView = view;
+            ButterKnife.bind(this, view);
 //            mIdView = (TextView) view.findViewById(R.id.id);
-            mImageView = (ImageView) view.findViewById(R.id.image1);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            //  mImageView = (ImageView) view.findViewById(R.id.image1);
+            //  mContentView = (TextView) view.findViewById(R.id.content);
         }
 
         @Override

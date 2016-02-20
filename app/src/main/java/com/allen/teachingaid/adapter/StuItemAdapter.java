@@ -76,8 +76,8 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
             super(view);
             mView = view;
 //            mIdView = (TextView) view.findViewById(R.id.id);
-            mImageView = (ImageView) view.findViewById(R.id.image1);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mImageView = (ImageView) view.findViewById(R.id.imageview);
+            mContentView = (TextView) view.findViewById(R.id.contentview);
         }
 
         @Override
