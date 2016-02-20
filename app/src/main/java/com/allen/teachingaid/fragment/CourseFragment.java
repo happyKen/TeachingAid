@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,12 +26,13 @@ import com.socks.library.KLog;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CourseFragment extends Fragment {
-
-    static CourseFragment fragment = null;
+public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.course_list_rcview)
     RecyclerView mCourseListRcview;
+    @Bind(R.id.swiperefreshlayout)
+    SwipeRefreshLayout mSwiperefreshlayout;
 
+    static CourseFragment fragment = null;
     private ProgressDialog pDialog;
     private CourseItemAdapter mCourseItemAdapter;
 
@@ -46,7 +49,6 @@ public class CourseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     private void httpGetData() {
@@ -88,21 +90,34 @@ public class CourseFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         httpGetData();
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
         pDialog.show();
 
+        mSwiperefreshlayout.setColorSchemeResources(
+                R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                R.color.colorAccent
+
+        );
+        mSwiperefreshlayout.setOnRefreshListener(this);
 
         mCourseListRcview.setLayoutManager(new LinearLayoutManager(App.getContext()));
         mCourseItemAdapter = new CourseItemAdapter(getActivity());
         mCourseListRcview.setAdapter(mCourseItemAdapter);
         mCourseListRcview.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL_LIST));
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
@@ -120,4 +135,16 @@ public class CourseFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    @Override
+    public void onRefresh() {
+        KLog.v("TAG", "onRefresh");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwiperefreshlayout.setRefreshing(false);
+            }
+        },5000);
+    }
+
 }
