@@ -2,10 +2,14 @@
 <LinearLayout
     android:id="@+id/list_item_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sl_recyclerview_item"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/layout_padding"
+    tools:context="com.allen.teachingaid.fragment.CourseFragment">
 
     <!--<TextView-->
     <!--android:id="@+id/id"-->
@@ -14,18 +18,59 @@
     <!--android:layout_margin="@dimen/text_margin"-->
     <!--android:textAppearance="?attr/textAppearanceListItem"/>-->
 
+
     <ImageView
+
         android:id="@+id/imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/image_margin"
+        android:src="@mipmap/ic_default"
         />
 
     <TextView
         android:id="@+id/contentview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
         android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1"
+        android:gravity="left"
         android:text="测试"
-        android:textAppearance="?attr/textAppearanceListItem"/>
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="18dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/rollcall_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/sl_button"
+            android:text="点名"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            />
+
+        <Button
+            android:id="@+id/ask_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/sl_button"
+            android:text="提问"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            />
+
+    </LinearLayout>
 </LinearLayout>

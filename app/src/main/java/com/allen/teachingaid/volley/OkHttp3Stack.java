@@ -1,27 +1,4 @@
 package com.allen.teachingaid.volley;
-/**
- * The MIT License (MIT)
- * <p/>
- * Copyright (c) 2015 Circle Internet Financial
- * <p/>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * <p/>
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * <p/>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,7 +17,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -50,66 +26,22 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * OkHttp backed {@link com.android.volley.toolbox.HttpStack HttpStack} that does not
- * use okhttp-urlconnection
+ * Created by Allen Lin on 2016/02/17.
  */
 public class OkHttp3Stack implements HttpStack {
+    private final OkHttpClient mClient;
 
-
-    public OkHttp3Stack() {
-
+    public OkHttp3Stack(OkHttpClient client) {
+        this.mClient = client;
     }
 
-    @Override
-    public HttpResponse performRequest(com.android.volley.Request<?> request, Map<String, String> additionalHeaders)
-            throws IOException, AuthFailureError {
-
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        int timeoutMs = request.getTimeoutMs();
-
-        clientBuilder.connectTimeout(timeoutMs, TimeUnit.MILLISECONDS);
-        clientBuilder.readTimeout(timeoutMs, TimeUnit.MILLISECONDS);
-        clientBuilder.writeTimeout(timeoutMs, TimeUnit.MILLISECONDS);
-
-        okhttp3.Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder();
-        okHttpRequestBuilder.url(request.getUrl());
-
-        Map<String, String> headers = request.getHeaders();
-        for (final String name : headers.keySet()) {
-            okHttpRequestBuilder.addHeader(name, headers.get(name));
-        }
-        for (final String name : additionalHeaders.keySet()) {
-            okHttpRequestBuilder.addHeader(name, additionalHeaders.get(name));
-        }
-
-        setConnectionParametersForRequest(okHttpRequestBuilder, request);
-        OkHttpClient client = clientBuilder.build();
-        okhttp3.Request okHttpRequest = okHttpRequestBuilder.build();
-        Call okHttpCall = client.newCall(okHttpRequest);
-        Response okHttpResponse = okHttpCall.execute();
-
-        StatusLine responseStatus = new BasicStatusLine(parseProtocol(okHttpResponse.protocol()), okHttpResponse.code(), okHttpResponse.message());
-        BasicHttpResponse response = new BasicHttpResponse(responseStatus);
-        response.setEntity(entityFromOkHttpResponse(okHttpResponse));
-
-        Headers responseHeaders = okHttpResponse.headers();
-        for (int i = 0, len = responseHeaders.size(); i < len; i++) {
-            final String name = responseHeaders.name(i), value = responseHeaders.value(i);
-            if (name != null) {
-                response.addHeader(new BasicHeader(name, value));
-            }
-        }
-
-        return response;
-    }
-
-    private static HttpEntity entityFromOkHttpResponse(Response r) throws IOException {
+    private static HttpEntity entityFromOkHttpResponse(Response response) throws IOException {
         BasicHttpEntity entity = new BasicHttpEntity();
-        ResponseBody body = r.body();
+        ResponseBody body = response.body();
 
         entity.setContent(body.byteStream());
         entity.setContentLength(body.contentLength());
-        entity.setContentEncoding(r.header("Content-Encoding"));
+        entity.setContentEncoding(response.header("Content-Encoding"));
 
         if (body.contentType() != null) {
             entity.setContentType(body.contentType().type());
@@ -118,47 +50,64 @@ public class OkHttp3Stack implements HttpStack {
     }
 
     @SuppressWarnings("deprecation")
-    private static void setConnectionParametersForRequest(okhttp3.Request.Builder builder, com.android.volley.Request<?> request)
+    private static void setConnectionParametersForRequest
+            (okhttp3.Request.Builder builder, Request<?> request)
             throws IOException, AuthFailureError {
         switch (request.getMethod()) {
             case Request.Method.DEPRECATED_GET_OR_POST:
-                // Ensure backwards compatibility.  Volley assumes a request with a null body is a GET.
                 byte[] postBody = request.getPostBody();
                 if (postBody != null) {
-                    builder.post(RequestBody.create(MediaType.parse(request.getPostBodyContentType()), postBody));
+                    builder.post(RequestBody.create
+                            (MediaType.parse(request.getPostBodyContentType()), postBody));
                 }
                 break;
+
             case Request.Method.GET:
                 builder.get();
                 break;
+
             case Request.Method.DELETE:
                 builder.delete();
                 break;
+
             case Request.Method.POST:
                 builder.post(createRequestBody(request));
                 break;
+
             case Request.Method.PUT:
                 builder.put(createRequestBody(request));
                 break;
+
             case Request.Method.HEAD:
                 builder.head();
                 break;
+
             case Request.Method.OPTIONS:
                 builder.method("OPTIONS", null);
                 break;
+
             case Request.Method.TRACE:
                 builder.method("TRACE", null);
                 break;
+
             case Request.Method.PATCH:
                 builder.patch(createRequestBody(request));
                 break;
+
             default:
                 throw new IllegalStateException("Unknown method type.");
         }
     }
 
-    private static ProtocolVersion parseProtocol(final Protocol p) {
-        switch (p) {
+    private static RequestBody createRequestBody(Request request) throws AuthFailureError {
+        final byte[] body = request.getBody();
+        if (body == null) return null;
+
+        return RequestBody.create(MediaType.parse(request.getBodyContentType()), body);
+    }
+
+    private static ProtocolVersion parseProtocol(final Protocol protocol) {
+        switch (protocol) {
             case HTTP_1_0:
                 return new ProtocolVersion("HTTP", 1, 0);
             case HTTP_1_1:
@@ -172,12 +121,48 @@ public class OkHttp3Stack implements HttpStack {
         throw new IllegalAccessError("Unkwown protocol");
     }
 
-    private static RequestBody createRequestBody(Request r) throws AuthFailureError {
-        final byte[] body = r.getBody();
-        if (body == null) {
-            return null;
+    @Override
+    public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders)
+            throws IOException, AuthFailureError {
+        int timeoutMs = request.getTimeoutMs();
+        OkHttpClient client = mClient.newBuilder()
+                .readTimeout(timeoutMs, TimeUnit.MILLISECONDS)
+                .connectTimeout(timeoutMs, TimeUnit.MILLISECONDS)
+                .writeTimeout(timeoutMs, TimeUnit.MILLISECONDS)
+                .build();
+
+        okhttp3.Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder();
+        Map<String, String> headers = request.getHeaders();
+        for (final String name : headers.keySet()) {
+            okHttpRequestBuilder.addHeader(name, headers.get(name));
         }
 
-        return RequestBody.create(MediaType.parse(r.getBodyContentType()), body);
+        for (final String name : additionalHeaders.keySet()) {
+            okHttpRequestBuilder.addHeader(name, additionalHeaders.get(name));
+        }
+
+        setConnectionParametersForRequest(okHttpRequestBuilder, request);
+
+        okhttp3.Request okhttp3Request = okHttpRequestBuilder.url(request.getUrl()).build();
+        Response okHttpResponse = client.newCall(okhttp3Request).execute();
+
+        StatusLine responseStatus = new BasicStatusLine
+                (
+                        parseProtocol(okHttpResponse.protocol()),
+                        okHttpResponse.code(),
+                        okHttpResponse.message()
+                );
+
+        BasicHttpResponse response = new BasicHttpResponse(responseStatus);
+        response.setEntity(entityFromOkHttpResponse(okHttpResponse));
+
+        Headers responseHeaders = okHttpResponse.headers();
+        for (int i = 0, len = responseHeaders.size(); i < len; i++) {
+            final String name = responseHeaders.name(i), value = responseHeaders.value(i);
+            if (name != null) {
+                response.addHeader(new BasicHeader(name, value));
+            }
+        }
+        return response;
     }
 }

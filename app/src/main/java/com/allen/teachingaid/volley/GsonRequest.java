@@ -23,7 +23,7 @@ public class GsonRequest<T> extends Request<T> {
     private final Listener<T> mListener;
     private static Gson mGson = new Gson();
     private Class<T> mClass;
-    private Map<String, String> mParams;//post参数
+    private Map<String, String> mParams;//post Params
     private TypeToken<T> mTypeToken;
 
 
@@ -34,7 +34,6 @@ public class GsonRequest<T> extends Request<T> {
         mListener = listener;
         mParams = params;
         setMyRetryPolicy();
-
     }
 
     private void setMyRetryPolicy() {
@@ -43,7 +42,6 @@ public class GsonRequest<T> extends Request<T> {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
-
     public GsonRequest(int method, Map<String, String> params, String url, TypeToken<T> typeToken, Listener<T> listener,
                        ErrorListener errorListener) {
         super(method, url, errorListener);
@@ -51,7 +49,6 @@ public class GsonRequest<T> extends Request<T> {
         mListener = listener;
         mParams = params;
         setMyRetryPolicy();
-
     }
 
     //get
