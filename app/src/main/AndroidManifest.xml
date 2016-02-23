@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,15 +27,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:label="@string/title_activity_login">
+        </activity>
 
-        </activity>
-        <activity android:name=".activity.StuListActivity">
-        </activity>
-        <activity android:name=".volley.SampleActivity">
+        <activity android:name=".ui.activity.StuListActivity"/>
+        <activity android:name=".ui.activity.RollcallActivity"/>
+        <activity android:name=".ui.activity.AskActivity"/>
 
-        </activity>
     </application>
 
 </manifest>

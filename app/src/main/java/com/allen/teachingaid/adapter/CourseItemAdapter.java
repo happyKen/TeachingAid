@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
-import com.allen.teachingaid.activity.AskActivity;
-import com.allen.teachingaid.activity.RollcallActivity;
-import com.allen.teachingaid.activity.StuListActivity;
+import com.allen.teachingaid.ui.activity.AskActivity;
+import com.allen.teachingaid.ui.activity.RollcallActivity;
+import com.allen.teachingaid.ui.activity.StuListActivity;
 import com.allen.teachingaid.entity.JCourse.Data.Course;
 import com.allen.teachingaid.volley.VolleyManager;
 
