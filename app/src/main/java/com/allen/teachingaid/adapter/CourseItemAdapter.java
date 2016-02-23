@@ -1,6 +1,6 @@
 package com.allen.teachingaid.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
+import com.allen.teachingaid.entity.JCourse.Data.Course;
 import com.allen.teachingaid.ui.activity.AskActivity;
 import com.allen.teachingaid.ui.activity.RollcallActivity;
 import com.allen.teachingaid.ui.activity.StuListActivity;
-import com.allen.teachingaid.entity.JCourse.Data.Course;
 import com.allen.teachingaid.volley.VolleyManager;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.ViewHolder> implements View.OnClickListener {
 
     // private String[] mTitles = {"手机软件周一班", "信息检索周三、四班", "计算机英语", "嵌入式", "中间件周四班"};
-    Context mContext;
+    Activity activity;
     @Bind(R.id.imageview)
     ImageView mImageview;
     @Bind(R.id.contentview)
@@ -41,8 +41,8 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
     private List<Course> mCourseList;
 
 
-    public CourseItemAdapter(Context context) {
-        this.mContext = context;
+    public CourseItemAdapter(Activity activity) {
+        this.activity = activity;
 
     }
 
@@ -105,31 +105,37 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
             case R.id.container:
                 //ToastUtil.showShort(v.getTag() + mCourseList.get((int) v.getTag()).getName());
 
-                intent = new Intent(mContext, StuListActivity.class);
+                intent = new Intent(activity, StuListActivity.class);
 
                 bundle = new Bundle();
                 bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
                 bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
                 intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
                 break;
             case R.id.rollcall_button:
-                intent = new Intent(mContext, RollcallActivity.class);
+                intent = new Intent(activity, RollcallActivity.class);
 
                 bundle = new Bundle();
                 bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
                 bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
                 intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
                 break;
             case R.id.ask_button:
-                intent = new Intent(mContext, AskActivity.class);
+                intent = new Intent(activity, AskActivity.class);
 
                 bundle = new Bundle();
                 bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
                 bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
                 intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
                 break;
 
 
