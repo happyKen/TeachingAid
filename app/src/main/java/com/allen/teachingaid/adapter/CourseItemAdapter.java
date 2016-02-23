@@ -1,29 +1,43 @@
 package com.allen.teachingaid.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
+import com.allen.teachingaid.activity.AskActivity;
+import com.allen.teachingaid.activity.RollcallActivity;
+import com.allen.teachingaid.activity.StuListActivity;
 import com.allen.teachingaid.entity.JCourse.Data.Course;
-import com.allen.teachingaid.util.ToastUtil;
 import com.allen.teachingaid.volley.VolleyManager;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.ViewHolder> {
+public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.ViewHolder> implements View.OnClickListener {
 
     // private String[] mTitles = {"手机软件周一班", "信息检索周三、四班", "计算机英语", "嵌入式", "中间件周四班"};
     Context mContext;
+    @Bind(R.id.imageview)
+    ImageView mImageview;
+    @Bind(R.id.contentview)
+    TextView mContentview;
+    @Bind(R.id.rollcall_button)
+    Button mRollcallButton;
+    @Bind(R.id.ask_button)
+    Button mAskButton;
+    @Bind(R.id.container)
+    LinearLayout mContainer;
     private List<Course> mCourseList;
 
 
@@ -32,6 +46,11 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 
     }
 
+    /**
+     * 设置adapter数据源
+     *
+     * @param mCourseList
+     */
     public void setDataSource(List<Course> mCourseList) {
         this.mCourseList = mCourseList;
     }
@@ -61,20 +80,15 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 //                .error(R.mipmap.menu1)
 //                .into(holder.mImageView);
         VolleyManager.newInstance().ImageLoaderRequest(holder.mImageView, "https://d262ilb51hltx0.cloudfront.net/max/800/1*dWGwx6UUjc0tocYzFNBLEw.jpeg",
-                R.mipmap.ic_default,R.mipmap.ic_error,150,150);
+                R.mipmap.ic_default, R.mipmap.ic_error, 150, 150);
         holder.mContentView.setText(mCourseList.get(position).getName());
 
-
-        holder.mListItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.showShort(position + mCourseList.get(position).getName());
-//                Intent intent = new Intent(mContext, StuListActivity.class);
-//                intent.putExtra("course_id", "123321");
-//                mContext.startActivity(intent);
-            }
-        });
-
+        holder.mAskButton.setOnClickListener(this);
+        holder.mAskButton.setTag(position);
+        holder.mRollcallButton.setOnClickListener(this);
+        holder.mRollcallButton.setTag(position);
+        holder.container.setOnClickListener(this);
+        holder.container.setTag(position);
     }
 
     @Override
@@ -82,27 +96,58 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
         return mCourseList == null ? 0 : mCourseList.size();
     }
 
-    @OnClick({R.id.imageview, R.id.contentview, R.id.list_item_view})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.image:
-                break;
-            case R.id.contentview:
-                break;
-            case R.id.list_item_view:
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = null;
+        Intent intent = null;
+        switch (v.getId()) {
 
+            case R.id.container:
+                //ToastUtil.showShort(v.getTag() + mCourseList.get((int) v.getTag()).getName());
+
+                intent = new Intent(mContext, StuListActivity.class);
+
+                bundle = new Bundle();
+                bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
+                bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
                 break;
+            case R.id.rollcall_button:
+                intent = new Intent(mContext, RollcallActivity.class);
+
+                bundle = new Bundle();
+                bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
+                bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                break;
+            case R.id.ask_button:
+                intent = new Intent(mContext, AskActivity.class);
+
+                bundle = new Bundle();
+                bundle.putInt("course_id", mCourseList.get((int) v.getTag()).getId());
+                bundle.putString("course_name", mCourseList.get((int) v.getTag()).getName());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                break;
+
+
         }
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.imageview)
         ImageView mImageView;
         @Bind(R.id.contentview)
         TextView mContentView;
-        @Bind(R.id.list_item_view)
-        LinearLayout mListItemView;
-
+        @Bind(R.id.container)
+        LinearLayout container;
+        @Bind(R.id.rollcall_button)
+        Button mRollcallButton;
+        @Bind(R.id.ask_button)
+        Button mAskButton;
 
         public ViewHolder(View view) {
             super(view);

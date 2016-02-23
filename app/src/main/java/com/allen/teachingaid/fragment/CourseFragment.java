@@ -94,7 +94,7 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_course, container, false);
         ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
 

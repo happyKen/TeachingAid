@@ -13,7 +13,7 @@ import com.allen.teachingaid.view.DividerItemDecoration;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RollcallActivity extends AppCompatActivity {
+public class AskActivity extends AppCompatActivity {
 
     public static String course_id;
     @Bind(R.id.list_stu)
@@ -22,7 +22,7 @@ public class RollcallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rollcall);
+        setContentView(R.layout.activity_stu_list);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();

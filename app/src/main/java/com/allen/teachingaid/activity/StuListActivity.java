@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.allen.teachingaid.R;
 import com.allen.teachingaid.adapter.StuItemAdapter;
-import com.allen.teachingaid.util.ToastUtil;
 import com.allen.teachingaid.view.DividerItemDecoration;
 
 import butterknife.Bind;
@@ -27,8 +26,11 @@ public class StuListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        course_id = intent.getStringExtra("course_id");
-        ToastUtil.showShort(course_id);
+        Bundle bundle = intent.getExtras();
+        String course_id = bundle.getString("course_id");
+        String course_name = bundle.getString("course_name");
+        getSupportActionBar().setTitle(course_name);
+        //根据course_id获取此课程的所有学生
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new StuItemAdapter(this));
