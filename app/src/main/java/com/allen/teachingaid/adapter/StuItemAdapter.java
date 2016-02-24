@@ -69,9 +69,9 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
         //由保存的数据来控制视图，防止viewholder复用而错位
         if (mItemStates.get(position) == false) {
             //   mItemStates.put(position, true);
-            holder.container.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
+            holder.mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
         } else {
-            holder.container.setBackgroundColor(mContext.getResources().getColor(R.color.color_red));
+            holder.mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
 //            mItemStates.put(position, false);
         }
 //        holder.container.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +108,9 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
                             int position = (int) container.getTag();
                             if (mItemStates.get(position) == false) {
                                 mItemStates.put(position, true);
-                                container.setBackgroundColor(mContext.getResources().getColor(R.color.color_red));
+                                mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
                             } else {
-                                container.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
+                                mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
                                 mItemStates.put(position, false);
                             }
                         }
