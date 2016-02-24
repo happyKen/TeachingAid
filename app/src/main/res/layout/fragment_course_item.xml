@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/sl_recyclerview_item"
     android:orientation="horizontal"
-    android:padding="@dimen/layout_padding"
+    android:padding="@dimen/course_layout_padding"
     tools:context="com.allen.teachingaid.fragment.CourseFragment">
 
     <!--<TextView-->

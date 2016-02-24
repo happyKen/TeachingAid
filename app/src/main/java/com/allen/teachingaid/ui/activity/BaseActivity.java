@@ -19,18 +19,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean isLeftFlingFinish = true; //默认左滑可以finish掉Activity
     private GestureDetectorCompat mGestureDetector;//手势检测
 
+    public abstract void initView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.v(this.getClass().getSimpleName(), ">>>onCreate");
         mGestureDetector = new GestureDetectorCompat(getApplicationContext(), new MyGestureListener());
+        initView();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.v(this.getClass().getSimpleName(), ">>>onStart");
+
     }
 
     @Override

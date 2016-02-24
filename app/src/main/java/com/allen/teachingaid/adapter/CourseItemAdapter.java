@@ -138,7 +138,6 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
                         R.anim.slide_left_out);
                 break;
 
-
         }
     }
 

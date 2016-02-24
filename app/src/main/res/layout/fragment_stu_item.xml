@@ -8,16 +8,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/sl_recyclerview_item"
     android:orientation="horizontal"
-    android:padding="@dimen/layout_padding"
+    android:padding="@dimen/stu_layout_padding"
     tools:context="com.allen.teachingaid.fragment.CourseFragment">
-
-    <!--<TextView-->
-    <!--android:id="@+id/id"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="@dimen/text_margin"-->
-    <!--android:textAppearance="?attr/textAppearanceListItem"/>-->
-
 
     <ImageView
 

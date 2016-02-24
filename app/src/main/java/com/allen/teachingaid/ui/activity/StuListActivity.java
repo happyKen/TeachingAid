@@ -21,6 +21,14 @@ public class StuListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showDialog();
+        initData();
+
+    }
+
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_stu_list);
         ButterKnife.bind(this);
 
@@ -28,16 +36,13 @@ public class StuListActivity extends BaseActivity {
         Bundle bundle = intent.getExtras();
         String course_id = bundle.getString("course_id");
         String course_name = bundle.getString("course_name");
-        getSupportActionBar().setTitle(course_name);
+        getSupportActionBar().setTitle("课程详情");
         //根据course_id获取此课程的所有学生
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new StuItemAdapter(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
-
-        showDialog();
-        initData();
 
     }
 

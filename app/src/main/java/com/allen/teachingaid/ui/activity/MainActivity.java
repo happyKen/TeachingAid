@@ -41,6 +41,11 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setLeftFlingFinish(false);
@@ -59,14 +64,8 @@ public class MainActivity extends BaseActivity
         getFragmentManager().beginTransaction().add
                 (R.id.container, CourseFragment.newInstance()).commit();
         mNavView.setCheckedItem(R.id.nav_course);
-//        fragments = new ArrayList<Fragment>();
-//        fragments.add(HomeFragment.newInstance("Home"));
-//        fragments.add(MercuryFragment.newInstance("Mercury"));
-//        fragments.add(VenusFragment.newInstance("Venus"));
-//        fragments.add(MarsFragment.newInstance("Mars"));
-//        fragments.add(AboutFragment.newInstance("About"));
-//        fragments.add(SettingFragment.newInstance("Setting"));
     }
+
 
     @Override
     public void onBackPressed() {

@@ -2,24 +2,40 @@ package com.allen.teachingaid.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
-import com.allen.teachingaid.util.ToastUtil;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHolder> {
+
+    @Bind(R.id.imageview)
+    ImageView mImageview;
+    @Bind(R.id.contentview)
+    TextView mContentview;
+    @Bind(R.id.container)
+    LinearLayout mContainer;
 
     private String[] mStu = {"林启南", "AllenLin", "林启南", "AllenLin", "林启南", "AllenLin", "林启南",
             "AllenLin", "林启南", "AllenLin", "林启南", "AllenLin", "林启南", "AllenLin"};
     Context mContext;
+    SparseBooleanArray mItemStates = new SparseBooleanArray();
 
     public StuItemAdapter(Context context) {
         this.mContext = context;
+        //初始化
+        for (int i = 0; i < mStu.length; i++) {
+            mItemStates.put(i, false);
+        }
     }
 
     @Override
@@ -48,17 +64,23 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
                 .into(holder.mImageView);
         holder.mContentView.setText(mStu[position]);
 
+        holder.container.setTag(position);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.showShort(position + mStu[position]);
-//                Intent intent = new Intent(mContext, StuListActivity.class);
-//                intent.putExtra("course_id", "123321");
-//                mContext.startActivity(intent);
-            }
-        });
-
+        //由保存的数据来控制视图，防止viewholder复用而错位
+        if (mItemStates.get(position) == false) {
+            //   mItemStates.put(position, true);
+            holder.container.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
+        } else {
+            holder.container.setBackgroundColor(mContext.getResources().getColor(R.color.color_red));
+//            mItemStates.put(position, false);
+        }
+//        holder.container.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //点击设置字体为红色
+//                holder.mContentView.setTextColor(mContext.getResources().getColor(R.color.color_red));
+//            }
+//        });
     }
 
     @Override
@@ -66,18 +88,35 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
         return mStu == null ? 0 : mStu.length;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final ImageView mImageView;
-        public final TextView mContentView;
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.imageview)
+        ImageView mImageView;
+        @Bind(R.id.contentview)
+        TextView mContentView;
+        @Bind(R.id.container)
+        LinearLayout container;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-//            mIdView = (TextView) view.findViewById(R.id.id);
-            mImageView = (ImageView) view.findViewById(R.id.imageview);
-            mContentView = (TextView) view.findViewById(R.id.contentview);
+            ButterKnife.bind(this, view);
+            //监听item
+            container.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int) container.getTag();
+                            if (mItemStates.get(position) == false) {
+                                mItemStates.put(position, true);
+                                container.setBackgroundColor(mContext.getResources().getColor(R.color.color_red));
+                            } else {
+                                container.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
+                                mItemStates.put(position, false);
+                            }
+                        }
+                    }
+
+            );
         }
 
         @Override
