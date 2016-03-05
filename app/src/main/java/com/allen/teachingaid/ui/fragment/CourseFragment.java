@@ -61,6 +61,7 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
 
+
         VolleyManager.newInstance().GsonGetRequest(TAG, Urls.COURSE_URL, JCourse.class
                 , new Response.Listener<JCourse>() {
             @Override
