@@ -9,10 +9,12 @@ import com.allen.teachingaid.R;
  */
 public class JLogin {
     private String data;//1为成功
-    public void setData(String data){
+
+    public void setData(String data) {
         this.data = data;
     }
-    public String getData(){
+
+    public String getData() {
         return data;
     }
 }

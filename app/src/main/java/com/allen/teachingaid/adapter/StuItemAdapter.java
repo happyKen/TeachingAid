@@ -38,6 +38,13 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
         }
     }
 
+    /**
+     * @return 学生签到状态：0为到，1为没到
+     */
+    public SparseBooleanArray getStuStates() {
+        return mItemStates;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

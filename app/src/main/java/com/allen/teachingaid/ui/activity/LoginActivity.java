@@ -1,22 +1,16 @@
 package com.allen.teachingaid.ui.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allen.teachingaid.R;
@@ -25,10 +19,6 @@ import com.allen.teachingaid.entity.JLogin;
 import com.allen.teachingaid.volley.VolleyManager;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.socks.library.KLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,11 +34,7 @@ public class LoginActivity extends Activity {
     private String password;
     private Toast toast;
     public static final String TAG = "LoginActivity";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +44,7 @@ public class LoginActivity extends Activity {
         findViewByIds();
         setListeners();
         init();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     private void findViewByIds() {

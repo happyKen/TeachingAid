@@ -40,6 +40,4 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

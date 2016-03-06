@@ -67,7 +67,7 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onResponse(JCourse jCourse) {
                 KLog.v("TAG", "ok" + jCourse.getData().getCourse().get(0).getName());
-                mCourseItemAdapter.setDataSource(jCourse.getData().getCourse());
+                mCourseItemAdapter.refresh(jCourse.getData().getCourse());
                 //  hideDialog();
                 mCourseItemAdapter.notifyDataSetChanged();
                 if (mSwiperefreshlayout != null)

@@ -1,6 +1,7 @@
 package com.allen.teachingaid.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.allen.teachingaid.adapter.StuItemAdapter;
 import com.allen.teachingaid.ui.widget.DividerItemDecoration;
 import com.allen.teachingaid.util.ToastUtil;
 
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -21,7 +23,7 @@ public class RollcallActivity extends BaseActivity {
     public static String course_id;
     @Bind(R.id.list_stu)
     RecyclerView mRecyclerView;
-
+    StuItemAdapter stuItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,8 @@ public class RollcallActivity extends BaseActivity {
         //根据course_id获取此课程的所有学生
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new StuItemAdapter(this));
+        stuItemAdapter = new StuItemAdapter(this);
+        mRecyclerView.setAdapter(stuItemAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
     }
@@ -74,6 +77,8 @@ public class RollcallActivity extends BaseActivity {
 
         if (id == R.id.action_rollcall_commit) {
             ToastUtil.showShort("点名提交");
+            //提交点名结果到服务器
+            stuItemAdapter.getStuStates();
             return true;
 
         }
@@ -84,5 +89,17 @@ public class RollcallActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
     }
 }

@@ -47,12 +47,12 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
     }
 
     /**
-     * 设置adapter数据源
-     *
+     * 更新adapter数据
      * @param mCourseList
      */
-    public void setDataSource(List<Course> mCourseList) {
+    public void refresh(List<Course> mCourseList) {
         this.mCourseList = mCourseList;
+        notifyDataSetChanged();
     }
 
     @Override
