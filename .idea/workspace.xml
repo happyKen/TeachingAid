@@ -75,8 +75,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="547c8005-badc-4ee6-8533-f41863efcc98" name="Default" comment="test">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.gitignore" afterPath="$PROJECT_DIR$/app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/allen/teachingaid/adapter/CourseItemAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/allen/teachingaid/adapter/CourseItemAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TeachingAid.iws" />
@@ -144,10 +142,10 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/allen/teachingaid/adapter/CourseItemAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.3394919">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
-                <element signature="e#1389#1390#0" expanded="true" />
-                <element signature="e#1429#1430#0" expanded="true" />
+                <element signature="e#1385#1386#0" expanded="true" />
+                <element signature="e#1425#1426#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -218,10 +216,10 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1457244124077" expanded="true" signature="202227:202269" placeholder="..." />
-                <marker date="1457244124077" expanded="true" signature="202227:202287" placeholder="..." />
-                <marker date="1457244124077" expanded="true" signature="202227:202300" placeholder="..." />
-                <marker date="1457244124077" expanded="true" signature="202227:202315" placeholder="..." />
+                <marker date="1457244213633" expanded="true" signature="202676:202693" placeholder="..." />
+                <marker date="1457244213633" expanded="true" signature="202676:202711" placeholder="..." />
+                <marker date="1457244213633" expanded="true" signature="202676:202724" placeholder="..." />
+                <marker date="1457244213633" expanded="true" signature="202676:202739" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -2518,7 +2516,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457243916183</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="test">
+      <created>1457244196896</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1457244196896</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -3063,10 +3067,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1457244124077" expanded="true" signature="202227:202269" placeholder="..." />
-            <marker date="1457244124077" expanded="true" signature="202227:202287" placeholder="..." />
-            <marker date="1457244124077" expanded="true" signature="202227:202300" placeholder="..." />
-            <marker date="1457244124077" expanded="true" signature="202227:202315" placeholder="..." />
+            <marker date="1457244213633" expanded="true" signature="202676:202693" placeholder="..." />
+            <marker date="1457244213633" expanded="true" signature="202676:202711" placeholder="..." />
+            <marker date="1457244213633" expanded="true" signature="202676:202724" placeholder="..." />
+            <marker date="1457244213633" expanded="true" signature="202676:202739" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -3090,10 +3094,10 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/allen/teachingaid/adapter/CourseItemAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3394919">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
-            <element signature="e#1389#1390#0" expanded="true" />
-            <element signature="e#1429#1430#0" expanded="true" />
+            <element signature="e#1385#1386#0" expanded="true" />
+            <element signature="e#1425#1426#0" expanded="true" />
           </folding>
         </state>
       </provider>
