@@ -40,12 +40,9 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
     LinearLayout mContainer;
     private List<Course> mCourseList;
 
-
     public CourseItemAdapter(Activity activity) {
         this.activity = activity;
-
     }
-
     /**
      * 更新adapter数据
      * @param mCourseList
