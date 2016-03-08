@@ -32,6 +32,8 @@ public class MainActivity extends BaseActivity
     NavigationView mNavView;
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+//    @Bind(R.id.nav_imageView)
+//    ImageView mNavImage;
     //    String[] menus = new String[]{
 //            "Main", "Homework", "Data", "Personal"
 //    };
@@ -41,7 +43,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -64,6 +65,9 @@ public class MainActivity extends BaseActivity
         getFragmentManager().beginTransaction().add
                 (R.id.container, CourseFragment.newInstance()).commit();
         mNavView.setCheckedItem(R.id.nav_course);
+//        VolleyManager.newInstance().ImageLoaderRequest(mNavImage,
+//                "http://img2.ali213.net/picfile/News/image/2015/08/12/2015081225355305.jpg",
+//                R.mipmap.ic_default, R.mipmap.ic_error, 170, 170);
     }
 
 

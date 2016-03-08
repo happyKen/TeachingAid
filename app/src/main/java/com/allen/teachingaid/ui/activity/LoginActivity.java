@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
         btn_login = (Button) findViewById(R.id.email_sign_in_button);
         edt_username = (EditText) findViewById(R.id.email);
         edt_password = (EditText) findViewById(R.id.password);
-        progressBar =(ProgressBar) findViewById(R.id.login_progress);
+        progressBar = (ProgressBar) findViewById(R.id.login_progress);
     }
 
     private void setListeners() {
@@ -60,21 +60,22 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //登陆中界面，待写
-                logining();
-
-                //登陆成功跳转
-                if (checkLogin() == 1) {
-                    Message msg = new Message();
-                    Bundle b = new Bundle();// 存放数据
-                    b.putInt("cmd", CMD_SUCCESS);
-                    msg.setData(b);
-                    uiHandler.sendMessage(msg); // 向Handler发送消息,更新UI
-                    mySendIntent();
-                } else {
-                    loginError();
-                }
+                mySendIntent();
+//                // TODO Auto-generated method stub
+//                //登陆中界面，待写
+//                logining();
+//
+//                //登陆成功跳转
+//                if (checkLogin() == 1) {
+//                    Message msg = new Message();
+//                    Bundle b = new Bundle();// 存放数据
+//                    b.putInt("cmd", CMD_SUCCESS);
+//                    msg.setData(b);
+//                    uiHandler.sendMessage(msg); // 向Handler发送消息,更新UI
+//                    mySendIntent();
+//                } else {
+//                    loginError();
+//                }
 
 
             }
@@ -107,7 +108,7 @@ public class LoginActivity extends Activity {
     }
 
 	/*
-	 * 判断密码是否正确，正确1，错误0
+     * 判断密码是否正确，正确1，错误0
 	 */
 
     private int checkLogin() {
@@ -130,22 +131,24 @@ public class LoginActivity extends Activity {
      * 与服务器连接
      */
     private Boolean login(int username, String password) {
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("username", String.valueOf(username));
-        map.put("password",password);
-       VolleyManager.newInstance().GsonPostRequest(TAG, map, Urls.LOGIN_URL, JLogin.class, new Response.Listener<JLogin>() {
-           @Override
-           public void onResponse(JLogin jLogin) {
-               Log.d("111111111111111111111", "ok" + jLogin.getData());
+        map.put("password", password);
 
-           }
-       }, new Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               Log.d("111111111111111111111", "okhhhghhh");
+        VolleyManager.newInstance().GsonPostRequest(TAG, map, Urls.LOGIN_URL, JLogin.class,
+                new Response.Listener<JLogin>() {
+                    @Override
+                    public void onResponse(JLogin jLogin) {
+                        Log.d("111111111111111111111", "ok" + jLogin.getData());
 
-           }
-       });
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("111111111111111111111", "okhhhghhh");
+
+                    }
+                });
         Log.d("22222", "222222");
         return false;
     }
@@ -179,11 +182,11 @@ public class LoginActivity extends Activity {
                     break;
                 case CMD_LOGIN_ERROR:
                     progressBar.setVisibility(View.GONE);
-                  Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_LONG);
+                    Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_LONG);
 
                     break;
                 case CMD_SUCCESS:
-                   progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     break;
                 default:
                     break;
@@ -212,5 +215,8 @@ public class LoginActivity extends Activity {
         intent.putExtras(bundle);
         //开启跳转
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in,
+                R.anim.slide_left_out);
+        //     finish();
     }
 }

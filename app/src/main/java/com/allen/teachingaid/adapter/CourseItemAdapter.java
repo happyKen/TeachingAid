@@ -76,8 +76,9 @@ public class CourseItemAdapter extends RecyclerView.Adapter<CourseItemAdapter.Vi
 //                .placeholder(R.mipmap.ic_launcher)
 //                .error(R.mipmap.menu1)
 //                .into(holder.mImageView);
-        VolleyManager.newInstance().ImageLoaderRequest(holder.mImageView, "https://d262ilb51hltx0.cloudfront.net/max/800/1*dWGwx6UUjc0tocYzFNBLEw.jpeg",
-                R.mipmap.ic_default, R.mipmap.ic_error, 150, 150);
+        VolleyManager.newInstance().ImageLoaderRequest(holder.mImageView,
+                "http://img2.ali213.net/picfile/News/image/2015/08/12/2015081225355305.jpg",
+                R.mipmap.ic_default, R.mipmap.ic_error, 170, 170);
         holder.mContentView.setText(mCourseList.get(position).getName());
 
         holder.mAskButton.setOnClickListener(this);

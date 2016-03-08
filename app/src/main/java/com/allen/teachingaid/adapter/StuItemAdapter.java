@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.allen.teachingaid.R;
-import com.squareup.picasso.Picasso;
+import com.allen.teachingaid.volley.VolleyManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -60,15 +60,18 @@ public class StuItemAdapter extends RecyclerView.Adapter<StuItemAdapter.ViewHold
         //Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into(holder.mImageView);
 //        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
 //        holder.mImageView.setImageBitmap(bitmap);
-        Picasso.with(mContext).setIndicatorsEnabled(true);
-        Picasso.with(mContext)
-
-                .load("http://i.imgur.com/DvpvklR.png")
-                .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.menu1)
-                .into(holder.mImageView);
+//        Picasso.with(mContext).setIndicatorsEnabled(true);
+//        Picasso.with(mContext)
+//
+//                .load("http://i.imgur.com/DvpvklR.png")
+//                .resize(150, 150)
+//                .centerCrop()
+//                .placeholder(R.mipmap.ic_launcher)
+//                .error(R.mipmap.menu1)
+//                .into(holder.mImageView);
+        VolleyManager.newInstance().ImageLoaderRequest(holder.mImageView,
+                "http://img2.ali213.net/picfile/News/image/2015/08/12/2015081225355305.jpg",
+                R.mipmap.ic_default, R.mipmap.ic_error, 170, 170);
         holder.mContentView.setText(mStu[position]);
 
         holder.container.setTag(position);

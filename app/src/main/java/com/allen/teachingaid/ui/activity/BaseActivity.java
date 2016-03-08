@@ -16,7 +16,8 @@ import com.allen.teachingaid.util.PhoneUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private boolean isExit = false; // 双击返回键退出标记
-    private boolean isLeftFlingFinish = true; //默认左滑可以finish掉Activity
+    //private boolean isLeftFlingFinish = true; //默认左滑可以finish掉Activity
+    private boolean isLeftFlingFinish = false;
     private GestureDetectorCompat mGestureDetector;//手势检测
 
     public abstract void initView();

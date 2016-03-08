@@ -1,25 +1,33 @@
 package com.allen.teachingaid.ui.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.allen.teachingaid.R;
 import com.allen.teachingaid.adapter.StuItemAdapter;
+import com.allen.teachingaid.config.Urls;
+import com.allen.teachingaid.entity.JLogin;
 import com.allen.teachingaid.ui.widget.DividerItemDecoration;
 import com.allen.teachingaid.util.ToastUtil;
+import com.allen.teachingaid.volley.VolleyManager;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class RollcallActivity extends BaseActivity {
-
+    public static final String TAG = "RollcallActivity";
     public static String course_id;
     @Bind(R.id.list_stu)
     RecyclerView mRecyclerView;
@@ -42,7 +50,7 @@ public class RollcallActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String course_id = bundle.getString("course_id");
+        course_id = bundle.getString("course_id");
         String course_name = bundle.getString("course_name");
 
         getSupportActionBar().setTitle("点名");
@@ -78,7 +86,26 @@ public class RollcallActivity extends BaseActivity {
         if (id == R.id.action_rollcall_commit) {
             ToastUtil.showShort("点名提交");
             //提交点名结果到服务器
-            stuItemAdapter.getStuStates();
+            SparseBooleanArray sparseBooleanArray = stuItemAdapter.getStuStates();
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("coures_id", course_id);
+            map.put("stu", sparseBooleanArray);
+
+            VolleyManager.newInstance().GsonPostRequest(TAG, map, Urls.LOGIN_URL, JLogin.class,
+                    new Response.Listener<JLogin>() {
+                        @Override
+                        public void onResponse(JLogin jLogin) {
+                            Log.d("111111111111111111111", "ok" + jLogin.getData());
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("111111111111111111111", "okhhhghhh");
+
+                        }
+                    });
             return true;
 
         }
